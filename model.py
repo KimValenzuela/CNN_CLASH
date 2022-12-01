@@ -114,4 +114,4 @@ def inceptionv2(image_size=80):
     
     return model
 
-model = inceptionv2(80)
+# model = inceptionv2(80)
