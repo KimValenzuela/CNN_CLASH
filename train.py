@@ -24,6 +24,8 @@ def get_params(dataset):
     return params
 
 def root_mean_squared_error(y_true, y_pred):
+    print('y_true: ', y_true)
+    print('y_pred: ', y_pred)
     return K.sqrt(K.mean(K.square(y_pred - y_true), axis = -1))
 
 def generator(nb_batches_train, train_data, dataset):
@@ -95,3 +97,5 @@ if __name__ == '__main__':
     
     plot_learning_curve(history.history['loss'], history.history['val_loss'], score)
             
+    model.save('./model_candels.h5')
+    model.save_weights('./weights_candels')

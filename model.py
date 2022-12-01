@@ -96,7 +96,7 @@ def inceptionv2(image_size=80):
     tower_29 = MaxPool2D(pool_size=(3,3), strides=(1,1), padding='same')(pool) # (4, 4, 544)
     tower_29 = Conv2D(filters=64, kernel_size=(1,1), padding='same', activation='relu')(tower_29) # (4, 4, 64)
     tower_30 = Conv2D(filters=112, kernel_size=(1,1), padding='same', activation='relu')(pool) # (4, 4, 112)
-    tower_31 = Concatenate()([tower_27, tower_28, tower_29, tower_30]) # (4, 4, 528)
+    tower_31 = Concatenate(axis=1)([tower_27, tower_28, tower_29, tower_30]) # (4, 4, 528)
 
 
     output_1 = AveragePooling2D(pool_size=(2,2))(tower_31) # (2, 2, 528)
@@ -114,4 +114,8 @@ def inceptionv2(image_size=80):
     
     return model
 
-# model = inceptionv2(80)
+
+
+if __name__ == '__main__':
+    
+    model = inceptionv2(80)

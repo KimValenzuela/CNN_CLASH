@@ -1,5 +1,6 @@
 import numpy as np
 from astropy.io import fits
+import pandas as pd
 
 class Preprocess(object):
 
@@ -29,3 +30,13 @@ class Preprocess(object):
         image = image[0].data
         image = np.resize(image.astype('float32'), (80, 80)) 
         return image.reshape(80, 80, 1)
+
+
+
+
+if __name__ == '__main__':
+
+	dataset = 'CANDELS'
+	data = pd.read_csv(f'{dataset}/{dataset}_labels.csv', index_col = None)[:10]
+	prep = Preprocess(data, f'{dataset}/stamps/')
+	X, y = prep.get_data()
