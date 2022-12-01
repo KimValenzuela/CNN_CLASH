@@ -24,7 +24,7 @@ def get_params(dataset):
     return params
 
 def root_mean_squared_error(y_true, y_pred):
-    return K.sqrt(K.mean(K.square(y_pred - y_true), axis = 1))
+    return K.sqrt(K.mean(K.square(y_pred - y_true), axis = -1))
 
 def generator(nb_batches_train, train_data, dataset):
     while True:
@@ -85,9 +85,9 @@ if __name__ == '__main__':
 
     history = model.fit(
         generator(nb_batches_train, train_data, dataset), 
-        steps_per_epoch=nb_batches_train, epochs=params['num_epochs'], validation_data=prep_val.get_data(), 
-        callbacks=[early_stopping]
-        )
+        steps_per_epoch=nb_batches_train, epochs=params['num_epochs'], 
+        validation_data=prep_val.get_data(), callbacks=[early_stopping]
+    )
 
     X_test, y_test = prep_test.get_data()
     score = model.evaluate(X_test, y_test)
