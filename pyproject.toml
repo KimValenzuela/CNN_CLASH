@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "poetry-demo"
+version = "0.1.0"
+description = ""
+authors = ["Kim Valenzuela <kimvalenzuela@hotmail.com>"]
+readme = "README.md"
+packages = [{include = "poetry_demo"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+tensorflow = {version="^2.11.0", markers = "python_version < '3.11' and python_version >= '3.8'" }
+astropy = "^5.1.1"
+scipy = "^1.9.3"
+pandas = "^1.5.2"
+matplotlib = "^3.6.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
