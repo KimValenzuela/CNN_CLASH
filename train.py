@@ -74,7 +74,7 @@ if __name__ == '__main__':
     train_data = data[val_size+test_size:].reset_index(drop=True)
 
     model = inceptionv2(params['image_size'])
-    model.compile(loss=root_mean_squared_error, optimizer=Adam(lr=params['learning_rate']))
+    model.compile(loss=root_mean_squared_error, optimizer=Adam(learning_rate=params['learning_rate']))
 
     early_stopping = EarlyStopping(monitor='val_loss', patience=params['early_stopping'], mode='auto')
 
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     prep_val = Preprocess(val_data, f'{dataset}/stamps/')
     prep_test = Preprocess(test_data, f'{dataset}/stamps/')
 
-    history = model.fit_generator(
+    history = model.fit(
         generator(nb_batches_train, train_data, dataset), 
         steps_per_epoch=nb_batches_train, epochs=params['num_epochs'], validation_data=prep_val.get_data(), 
         callbacks=[early_stopping]
