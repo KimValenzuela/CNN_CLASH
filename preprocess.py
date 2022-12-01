@@ -30,13 +30,3 @@ class Preprocess(object):
         image = image[0].data
         image = np.resize(image.astype('float32'), (80, 80)) 
         return image.reshape(80, 80, 1)
-
-
-# dataset = 'CANDELS'
-# data = pd.read_csv(f"{dataset}/{dataset}_labels.csv", index_col=None)[0:10]
-# prep = Preprocess(data, f"{dataset}/stamps/")
-
-# X, y = prep.get_data()
-
-# print(X)
-# print(y)
