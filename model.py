@@ -4,7 +4,7 @@ import tensorflow as tf
 # os.environ['TF_CPP_MIN_LOG_LEVEL'] = '0' 
 
 def inceptionv2(image_size=80):
-    inp = tf.keras.layers.InputLayer(input_shape=(1, image_size, image_size)) # (80, 80, 1)
+    inp = tf.keras.Input(shape=(1, image_size, image_size)) # (80, 80, 1)
     x = tf.keras.layers.Conv2D(filters=64, kernel_size=(7,7), activation='relu')(inp) # (74, 74, 64)
     x = tf.keras.layers.BatchNormalization()(x) # (74, 74, 64)
     x = tf.keras.layers.MaxPool2D(pool_size=(2,2))(x) # (37, 37, 64)
@@ -26,7 +26,7 @@ def inceptionv2(image_size=80):
     tower_3 = tf.keras.layers.BatchNormalization()(tower_3)
     tower_4 = tf.keras.layers.Conv2D(filters=64, kernel_size=(1,1), padding='same', activation='relu')(x) # (16, 16, 64)
     tower_4 = tf.keras.layers.BatchNormalization()(tower_4)
-    tower_5 = tf.keras.layers.Concatenate()([tower_1, tower_2, tower_3, tower_4]) # (16, 16, 240)
+    tower_5 = tf.keras.layers.Concatenate(axis=1)([tower_1, tower_2, tower_3, tower_4]) # (16, 16, 240)
     
     # INCEPTION LAYERS 2
     tower_6 = tf.keras.layers.Conv2D(filters=128, kernel_size=(1,1), padding='same', activation='relu')(tower_5) # (16, 16, 128)
@@ -42,7 +42,7 @@ def inceptionv2(image_size=80):
     tower_8 = tf.keras.layers.BatchNormalization()(tower_8)
     tower_9 = tf.keras.layers.Conv2D(filters=128, kernel_size=(1,1), padding='same', activation='relu')(tower_5) # (16, 16, 128)
     tower_9 = tf.keras.layers.BatchNormalization()(tower_9)
-    tower_10 = tf.keras.layers.Concatenate()([tower_6, tower_7, tower_8, tower_9]) # (16, 16, 480)
+    tower_10 = tf.keras.layers.Concatenate(axis=1)([tower_6, tower_7, tower_8, tower_9]) # (16, 16, 480)
     
     tower_11 = tf.keras.layers.MaxPool2D(pool_size=(2,2))(tower_10) # (8, 8, 480)
     
@@ -60,7 +60,7 @@ def inceptionv2(image_size=80):
     tower_14 = tf.keras.layers.BatchNormalization()(tower_14)
     tower_15 = tf.keras.layers.Conv2D(filters=192, kernel_size=(1,1), padding='same', activation='relu')(tower_11) # (8, 8, 192)
     tower_15 = tf.keras.layers.BatchNormalization()(tower_15)
-    tower_16 = tf.keras.layers.Concatenate()([tower_12, tower_13, tower_14, tower_15]) # (8, 8, 512)
+    tower_16 = tf.keras.layers.Concatenate(axis=1)([tower_12, tower_13, tower_14, tower_15]) # (8, 8, 512)
 
     # INCEPTION LAYERS 4
     tower_17 = tf.keras.layers.Conv2D(filters=112, kernel_size=(1,1), padding='same', activation='relu')(tower_16) # (8, 8, 112)
@@ -70,7 +70,7 @@ def inceptionv2(image_size=80):
     tower_19 = tf.keras.layers.MaxPool2D(pool_size=(3,3), strides=(1,1), padding='same')(tower_16) # (8, 8, 512)
     tower_19 = tf.keras.layers.Conv2D(filters=64, kernel_size=(1,1), padding='same', activation='relu')(tower_19) # (8, 8, 64)
     tower_20 = tf.keras.layers.Conv2D(filters=160, kernel_size=(1,1), padding='same', activation='relu')(tower_16) # (8, 8, 160)
-    tower_21 = tf.keras.layers.Concatenate()([tower_17, tower_18, tower_19, tower_20]) # (8, 8, 512)
+    tower_21 = tf.keras.layers.Concatenate(axis=1)([tower_17, tower_18, tower_19, tower_20]) # (8, 8, 512)
 
     # INCEPTION LAYERS 5
     tower_22 = tf.keras.layers.Conv2D(filters=144, kernel_size=(1,1), padding='same', activation='relu')(tower_21) # (8, 8, 144)
@@ -80,7 +80,7 @@ def inceptionv2(image_size=80):
     tower_24 = tf.keras.layers.MaxPool2D(pool_size=(3,3), strides=(1,1), padding='same')(tower_21) # (8, 8, 512)
     tower_24 = tf.keras.layers.Conv2D(filters=64, kernel_size=(1,1), padding='same', activation='relu')(tower_24) # (8, 8, 64)
     tower_25 = tf.keras.layers.Conv2D(filters=128, kernel_size=(1,1), padding='same', activation='relu')(tower_21) # (8, 8, 128)
-    tower_26 = tf.keras.layers.Concatenate()([tower_22, tower_23, tower_24, tower_25]) # (8, 8, 544)
+    tower_26 = tf.keras.layers.Concatenate(axis=1)([tower_22, tower_23, tower_24, tower_25]) # (8, 8, 544)
     
     pool = tf.keras.layers.MaxPool2D(pool_size=(2,2))(tower_26) # (4, 4, 544)
     
@@ -92,7 +92,7 @@ def inceptionv2(image_size=80):
     tower_29 = tf.keras.layers.MaxPool2D(pool_size=(3,3), strides=(1,1), padding='same')(pool) # (4, 4, 544)
     tower_29 = tf.keras.layers.Conv2D(filters=64, kernel_size=(1,1), padding='same', activation='relu')(tower_29) # (4, 4, 64)
     tower_30 = tf.keras.layers.Conv2D(filters=112, kernel_size=(1,1), padding='same', activation='relu')(pool) # (4, 4, 112)
-    tower_31 = tf.keras.layers.Concatenate()([tower_27, tower_28, tower_29, tower_30]) # (4, 4, 528)
+    tower_31 = tf.keras.layers.Concatenate(axis=1)([tower_27, tower_28, tower_29, tower_30]) # (4, 4, 528)
 
 
     output_1 = tf.keras.layers.AveragePooling2D(pool_size=(2,2))(tower_31) # (2, 2, 528)
