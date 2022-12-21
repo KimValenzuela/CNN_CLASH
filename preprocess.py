@@ -1,6 +1,7 @@
 import numpy as np
 from astropy.io import fits
 import pandas as pd
+from PIL import Image as img
 
 class Preprocess(object):
 
@@ -27,10 +28,12 @@ class Preprocess(object):
 
     def open_image(self, ID):
         image = fits.open(f"{self.path}{ID}.fits")
-        image = image[0].data
-        image = np.resize(image.astype('float32'), (80, 80)) 
-        image = image.reshape(80, 80, 1)
-        image.writeto(f'images_preprocess/{self.path}{ID}_preprocess.fits')
+        image = image[0].data 
+        image = img.fromarray(image)
+        image = image.resize((80, 80))
+        #print(image.size)
+        #hdu_image = fits.PrimaryHDU(data = image)
+        #hdu_image.writeto(f'images_preprocess/{ID}_preprocess.fits', overwrite = True)
         return image
 
 
