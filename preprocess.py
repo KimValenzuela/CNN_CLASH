@@ -32,7 +32,8 @@ class Preprocess(object):
         image = img.fromarray(image)
         image = image.resize((80, 80))
         image = np.asarray(image).reshape(1, 80, 80)
-        # print(image.shape)
+        # image = np.moveaxis(image, 0, -1)
+        # print(image)
         # hdu_image = fits.PrimaryHDU(data = image)
         # hdu_image.writeto(f'images_preprocess/{ID}_preprocess.fits', overwrite = True)
         return image

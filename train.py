@@ -5,10 +5,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from keras import backend as K
-from keras.preprocessing.image import ImageDataGenerator
-from keras.callbacks import EarlyStopping
-from keras.optimizers import Adam
+import tensorflow as tf
+#from keras import backend as K
 
 from preprocess import Preprocess
 from model import inceptionv2
@@ -16,7 +14,7 @@ from model import inceptionv2
 #os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 plt.switch_backend('agg')
-K.set_image_data_format('channels_last')
+tf.keras.backend.set_image_data_format('channels_first')
 
 def get_params(dataset):
     with open(f"./{dataset}/config.json", "r") as f:
@@ -24,7 +22,7 @@ def get_params(dataset):
     return params
 
 def root_mean_squared_error(y_true, y_pred):
-    return K.sqrt(K.mean(K.square(y_pred - y_true), axis=-1))
+    return tf.math.sqrt(tf.math.reduce_mean(tf.math.square(y_pred - y_true), axis=-1))
 
 def generator(nb_batches_train, train_data, dataset):
     while True:
@@ -34,7 +32,7 @@ def generator(nb_batches_train, train_data, dataset):
             preprocess = Preprocess(train_data_epoch, f'{dataset}/stamps/')
             X, y = preprocess.get_data()
 
-            datagen = ImageDataGenerator(
+            datagen = tf.keras.preprocessing.image.ImageDataGenerator(
                 rotation_range=360,
                 width_shift_range=0.05,
                 height_shift_range=0.05,
@@ -74,9 +72,9 @@ if __name__ == '__main__':
     train_data = data[val_size+test_size:].reset_index(drop=True)
 
     model = inceptionv2(params['image_size'])
-    model.compile(loss=root_mean_squared_error, optimizer=Adam(learning_rate=params['learning_rate']))
+    model.compile(loss=root_mean_squared_error, optimizer=tf.keras.optimizers.Adam(learning_rate=params['learning_rate']))
 
-    early_stopping = EarlyStopping(monitor='val_loss', patience=params['early_stopping'], mode='auto')
+    early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=params['early_stopping'], mode='auto')
 
     nb_batches_train = int(train_data.shape[0]/params['batch_size_train'])
 
