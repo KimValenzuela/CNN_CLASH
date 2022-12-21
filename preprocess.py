@@ -29,9 +29,9 @@ class Preprocess(object):
         image = fits.open(f"{self.path}{ID}.fits")
         image = image[0].data
         image = np.resize(image.astype('float32'), (80, 80)) 
-        return image.reshape(80, 80, 1)
-
-
+        image = image.reshape(80, 80, 1)
+        image.writeto(f'images_preprocess/{self.path}{ID}_preprocess.fits')
+        return image
 
 
 if __name__ == '__main__':
