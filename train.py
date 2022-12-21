@@ -13,7 +13,7 @@ from keras.optimizers import Adam
 from preprocess import Preprocess
 from model import inceptionv2
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 plt.switch_backend('agg')
 K.set_image_data_format('channels_last')

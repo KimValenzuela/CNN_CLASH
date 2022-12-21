@@ -4,8 +4,8 @@ from keras.layers import (
     AveragePooling2D, Flatten, Dense, Dropout
 )
 
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '0' 
+# import os
+# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '0' 
 
 def inceptionv2(image_size=80):
     inp = Input(shape=(image_size, image_size, 1)) # (80, 80, 1)
