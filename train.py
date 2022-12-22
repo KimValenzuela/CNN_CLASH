@@ -22,7 +22,7 @@ def get_params(dataset):
     return params
 
 def root_mean_squared_error(y_true, y_pred):
-    return tf.math.sqrt(tf.keras.losses.MeanSquaredError()(y_true, y_pred))
+    return tf.math.sqrt(tf.keras.losses.MeanSquaredError(y_true, y_pred))
 
 def generator(nb_batches_train, train_data, dataset):
     while True:
