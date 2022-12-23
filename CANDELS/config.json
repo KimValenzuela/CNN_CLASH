@@ -11,7 +11,7 @@
     "val_size": 1135,
     "test_size": 1135,
 
-    "batch_size_train": 32,
+    "batch_size_train": 16,
 
     "random_perturbations": 4
 

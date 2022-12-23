@@ -22,7 +22,8 @@ def get_params(dataset):
     return params
 
 def root_mean_squared_error(y_true, y_pred):
-    return tf.math.sqrt(tf.keras.losses.MeanSquaredError(y_true, y_pred))
+    mse = tf.keras.losses.MeanSquaredError()
+    return tf.math.sqrt(mse(y_true, y_pred))
 
 def generator(nb_batches_train, train_data, dataset):
     while True:
@@ -90,6 +91,7 @@ if __name__ == '__main__':
     X_test, y_test = prep_test.get_data()
     score = model.evaluate(X_test, y_test)
     print('Score: ', score)
+    print('Metric: ', model.metrics_names)
     
     plot_learning_curve(history.history['loss'], history.history['val_loss'], score)
             
