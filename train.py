@@ -60,7 +60,7 @@ def plot_learning_curve(loss, val_loss, score):
 if __name__ == '__main__':
     dataset = str(sys.argv[1])
 
-    data = pd.read_csv(f'{dataset}/{dataset}_labels.csv', index_col=None)
+    data = pd.read_csv(f'{dataset}/{dataset}_labels.csv', index_col=None)[:1000]
     data = data.sample(frac=1).reset_index(drop=True)
 
     params = get_params(dataset)

@@ -8,8 +8,8 @@
 
     "image_size": 80,
 
-    "val_size": 1135,
-    "test_size": 1135,
+    "val_size": 200,
+    "test_size": 200,
 
     "batch_size_train": 16,
 
