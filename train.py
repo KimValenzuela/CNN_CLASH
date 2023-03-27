@@ -95,5 +95,5 @@ if __name__ == '__main__':
     
     plot_learning_curve(history.history['loss'], history.history['val_loss'], score)
             
-    model.save('model_results/model_candels.h5')
-    model.save_weights('model_results/weights_candels.h5')
+    model.save('model_candels.h5')
+    model.save_weights('weights_candels.h5')
