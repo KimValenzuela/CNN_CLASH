@@ -2,7 +2,7 @@
     "learning_rate": 5e-5,
     "num_classes": 5,
 
-    "num_epochs": 150,
+    "num_epochs": 1500,
 
     "early_stopping": 50,
 
