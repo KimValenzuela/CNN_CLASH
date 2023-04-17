@@ -8,10 +8,10 @@
 
     "image_size": 80,
 
-    "val_size": 200,
-    "test_size": 200,
+    "val_size": 1135,
+    "test_size": 1135,
 
-    "batch_size_train": 16,
+    "batch_size_train": 32,
 
     "random_perturbations": 4
 

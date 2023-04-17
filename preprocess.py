@@ -43,6 +43,6 @@ class Preprocess(object):
 if __name__ == '__main__':
 
 	dataset = 'CANDELS'
-	data = pd.read_csv(f'{dataset}/{dataset}_labels.csv', index_col = None)[:10]
+	data = pd.read_csv(f'{dataset}/{dataset}_labels.csv', index_col = None)
 	prep = Preprocess(data, f'{dataset}/stamps/')
 	X, y = prep.get_data()

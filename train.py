@@ -12,8 +12,6 @@ from preprocess import Preprocess
 from model import inceptionv2
 
 #os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-
-plt.switch_backend('agg')
 tf.keras.backend.set_image_data_format('channels_first')
 
 def get_params(dataset):
@@ -73,7 +71,7 @@ if __name__ == '__main__':
     train_data = data[val_size+test_size:].reset_index(drop=True)
 
     model = inceptionv2(params['image_size'])
-    model.compile(loss=root_mean_squared_error, optimizer=tf.keras.optimizers.Adam(learning_rate=params['learning_rate']))
+    model.compile(loss=root_mean_squared_error, optimizer=tf.keras.optimizers.Adam(learning_rate=params['learning_rate']), metrics=['accuracy', 'mse'])
 
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=params['early_stopping'], mode='auto')
 
