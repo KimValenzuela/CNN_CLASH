@@ -1,2 +1,4 @@
 # ignore everything in the following folders
 CANDELS/stamps/*
+.DS_Store
+*.cpython*

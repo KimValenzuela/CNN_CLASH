@@ -14,7 +14,7 @@ from model import inceptionv2
 #os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 plt.switch_backend('agg')
-tf.keras.backend.set_image_data_format('channels_first')
+#tf.keras.backend.set_image_data_format('channels_first')
 
 def get_params(dataset):
     with open(f"./{dataset}/config.json", "r") as f:
@@ -40,7 +40,7 @@ def generator(nb_batches_train, train_data, dataset):
                 horizontal_flip=True,
                 vertical_flip=True
             )
-            data = datagen.flow(X, y, batch_size=X.shape[0], shuffle=False).next()
+            data = next(datagen.flow(X, y, batch_size=X.shape[0], shuffle=False))
             yield data[0], data[1]
 
 
@@ -82,6 +82,7 @@ if __name__ == '__main__':
     prep_val = Preprocess(val_data, f'{dataset}/stamps/')
     prep_test = Preprocess(test_data, f'{dataset}/stamps/')
 
+    print("Train Data Shape", train_data.shape)
     history = model.fit(
         generator(nb_batches_train, train_data, dataset), 
         steps_per_epoch=nb_batches_train, epochs=params['num_epochs'], 
